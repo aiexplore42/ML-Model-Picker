@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ML Model‑Suggestion Chat</title>
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    line-height: 1.6;
+    color: #333;
+    padding: 0 1rem;
+    background: #f9fbfd;
+  }
+  h1 { text-align: center; margin-bottom: 0.5rem; }
+
+  /* ----- Instruction box ----- */
+  .instructions {
+    background: #e8f4ff;
+    border-left: 6px solid #0066ff;
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+  .instructions ol { margin-left: 1.2rem; }
+
+  /* ----- Prompt boxes ----- */
+  .prompt {
+    background: #f4f9ff;
+    border-left: 6px solid #0066ff;
+    padding: 0.9rem;
+    margin: 0.9rem 0;
+    position: relative;
+    white-space: pre-wrap;
+    font-family: inherit;
+  }
+  .prompt textarea {
+    width: 100%;
+    height: 7em;
+    resize: none;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #000;
+    outline: none;
+  }
+
+  /* ----- Placeholder chat UI ----- */
+  #chatContainer {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+  #messages {
+    min-height: 120px;
+    margin-bottom: 0.5rem;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  #userInput {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  #sendBtn {
+    margin-top: 0.5rem;
+    background: #0066ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #sendBtn:hover { background: #004ecc; }
+
+  /* ----- Free‑Chat button ----- */
+  .chat-btn {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 1.5rem auto;
+    padding: 0.8rem 1.2rem;
+    background-color: #0066ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .chat-btn:hover { background-color: #004ecc; }
+
+  /* ----- Footer & disclaimer ----- */
+  footer {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #777;
+    line-height: 1.4;
+  }
+  .disclaimer {
+    font-size: 0.78rem;
+    color: #555;
+    background: #fafafa;
+    border-left: 4px solid #ff9900;
+    padding: 0.6rem;
+    margin: 1rem 0;
+    display: inline-block;
+    text-align: left;
+    max-width: 100%;
+  }
+</style>
+</head>
+
+<body>
+<h1>ML Model‑Suggestion Chat</h1>
+
+<!-- Instructions -->
+<div class="instructions">
+  <strong>How to use:</strong>
+  <ol>
+    <li>Select the prompt that best matches the kind of help you need and copy its text (click inside the textarea and press <kbd>Ctrl +C</kbd>).</li>
+    <li>Open the “Free Chat” link – it loads a public chat UI (Hugging Face, OpenAI, etc.).</li>
+    <li>Paste the copied prompt into the chat window and press Enter.</li>
+    <li>The AI will ask you for input variables, data‑cleanliness status, and the desired output type, then suggest a suitable ML/AI model.</li>
+    <li>Remember the suggestion is guidance only; validate with domain experts or further experimentation.</li>
+  </ol>
+</div>
+
+<!-- Prompt 1 – General Model Recommendation -->
+<div class="prompt">
+  <textarea readonly>
+You are a knowledgeable data‑science assistant. First ask the user to list the **input variables** (features) they have, whether the **data is already cleaned/pre‑processed**, and the **type of output** they expect (continuous numeric, binary classification, multiclass, ranking, clustering, etc.). Once you have that information, recommend an appropriate machine‑learning model (e.g., linear regression for continuous output, logistic regression for binary classification, decision tree/random forest for mixed data, k‑nearest neighbors, SVM, neural network, etc.). Keep the recommendation concise, explain why the suggested model fits, and add a brief disclaimer that further validation is required.
+  </textarea>
+</div>
+
+<!-- Prompt 2 – Regression‑Focused -->
+<div class="prompt">
+  <textarea readonly>
+You are a regression specialist. Ask the user for the list of features, confirm that the dataset is cleaned, and verify that the target variable is **continuous** (e.g., price, temperature, sales). Then suggest a suitable regression algorithm (linear regression, ridge/lasso, polynomial regression, gradient boosting regressor, etc.) and briefly explain the trade‑offs. End with a reminder that model performance should be evaluated on a hold‑out set.
+  </textarea>
+</div>
+
+<!-- Prompt 3 – Classification‑Focused -->
+<div class="prompt">
+  <textarea readonly>
+You are a classification expert. Prompt the user to provide the feature set, indicate whether the data is cleaned, and specify the **output type** (binary, multiclass, or imbalanced). Based on that, recommend an appropriate classifier (logistic regression, decision tree, random forest, XGBoost, support vector machine, neural network, etc.) and give a short rationale. Conclude with a note that hyper‑parameter tuning and cross‑validation are essential.
+  </textarea>
+</div>
+
+<!-- Prompt 4 – Unsupervised / Clustering -->
+<div class="prompt">
+  <textarea readonly>
+You are an unsupervised‑learning guide. Ask the user for the available features and whether the data has been cleaned. Since no explicit target is given, suggest a clustering or dimensionality‑reduction technique (K‑means, hierarchical clustering, DBSCAN, PCA, t‑SNE, UMAP, etc.) and explain when each is useful. Remind the user that cluster validity should be examined with silhouette scores or domain knowledge.
+  </textarea>
+</div>
+
+<!-- Placeholder chat UI (visual only) -->
+<section id="chatContainer">
+  <div id="messages"><em>(Chat messages will appear here after you connect a real back‑end.)</em></div>
+  <textarea id="userInput" placeholder="Enter your question or description here…" rows="2"></textarea>
+  <button id="sendBtn">Send</button>
+</section>
+
+<!-- Free‑Chat button (public endpoint) -->
+<a href="https://huggingface.co/chat/" target="_blank" class="chat-btn">Free Chat (Hugging Face)</a>
+
+<footer>
+  © 2026 Fluxpuls – Powered by Hugging Face. 
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> The AI suggestions are for general guidance only and are not a substitute for professional data‑science advice. Always validate model choices with proper experimentation and domain expertise.
+  </div>
+  This page is for educational/demo purposes only.
+</footer>
+</body>
+</html>
