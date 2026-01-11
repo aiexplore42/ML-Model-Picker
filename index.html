@@ -2,25 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ML Model‑Suggestion AI Chat</title>
+<title>ML Model Suggestion Chat</title>
 
-<!-- Inter – modern, highly readable for technical audiences -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  /* ==== Purple colour palette ==== */
   :root{
-    --primary:#6A0DAD;            /* deep purple */
-    --primary-light:#9E4FD8;      /* lighter accent */
-    --primary-dark:#4B0A84;       /* hover / dark shade */
-    --bg-page:#F5F5FF;           /* very light lavender background */
-    --bg-card:#FFFFFF;           /* white cards */
-    --bg-instructions:#EDE7F6;   /* pale lavender for the instruction box */
-    --bg-prompt:#F3E5F5;         /* soft lilac for prompt cards */
-    --bg-disclaimer:#FAFAFA;     /* neutral footer background */
+    --primary:#6A0DAD;
+    --primary-light:#9E4FD8;
+    --primary-dark:#4B0A84;
+    --bg-page:#F5F5FF;
+    --bg-card:#FFFFFF;
+    --bg-instructions:#EDE7F6;
+    --bg-prompt:#F3E5F5;
+    --bg-disclaimer:#FAFAFA;
   }
-
-  /* ==== Global page style ==== */
   body{
     font-family:'Inter',Arial,Helvetica,sans-serif;
     background:var(--bg-page);
@@ -37,8 +33,6 @@
     color:var(--primary-dark);
     margin-bottom:0.8rem;
   }
-
-  /* ==== Instruction box ==== */
   .instructions{
     background:var(--bg-instructions);
     border-left:6px solid var(--primary);
@@ -51,8 +45,6 @@
     margin-left:1.4rem;
     margin-top:0.6rem;
   }
-
-  /* ==== Prompt cards ==== */
   .prompt{
     background:var(--bg-prompt);
     border-left:6px solid var(--primary);
@@ -82,8 +74,6 @@
   .prompt .copy-btn:hover{
     background:var(--primary-dark);
   }
-
-  /* ==== Single OpenAI button ==== */
   .chat-btn{
     display:block;
     width:100%;
@@ -105,8 +95,6 @@
     background:var(--primary-dark);
     transform:translateY(-2px);
   }
-
-  /* ==== Footer & disclaimer ==== */
   footer{
     margin-top:2.5rem;
     font-size:.85rem;
@@ -128,14 +116,14 @@
 </head>
 
 <body>
-<h1>ML Model‑Suggestion AI Chat</h1>
+<h1>ML Model Suggestion Chat</h1>
 
 <div class="instructions">
   <strong>How to use:</strong>
   <ol>
-    <li>Select the prompt that best matches the help you need and click **Copy**.</li>
-    <li>Press the **OpenAI Chat** button below – it opens a public chat UI (OpenAI, Hugging Face, etc.).</li>
-    <li>Paste the copied prompt into the chat window and hit **Enter**.</li>
+    <li>Select the prompt that best matches the help you need and click <b>Copy</b>.</li>
+    <li>Press the <b>OpenAI Chat</b> button below – it opens a public chat UI (OpenAI, Hugging Face, etc.).</li>
+    <li>Paste the copied prompt into the chat window and hit <b>Enter</b>.</li>
     <li>The AI will ask for input variables, data‑cleanliness status, and the desired output type, then suggest a suitable ML/AI model.</li>
     <li>Remember the suggestion is guidance only; validate with domain experts or further experimentation.</li>
   </ol>
@@ -144,19 +132,19 @@
 <!-- Prompt 1 – General ML suggestion -->
 <div class="prompt" id="p1">
   <button class="copy-btn" onclick="copyPrompt('p1')">Copy</button>
-You are a knowledgeable data‑science assistant. First ask the user to list the **input variables** (features) they have, whether the **data is already cleaned/pre‑processed**, and the **type of output** they expect (continuous numeric, binary classification, multiclass, ranking, clustering, etc.). Once you have that information, recommend an appropriate machine‑learning model (e.g., linear regression for continuous output, logistic regression for binary classification, decision tree/random forest for mixed data, k‑nearest neighbors, SVM, neural network, etc.). Keep the recommendation concise, explain why the suggested model fits, and add a brief disclaimer that further validation is required.
+You are a knowledgeable data‑science assistant. First ask the user to list the <b>input variables</b> (features) they have, whether the <b>data is already cleaned/pre‑processed</b>, and the <b>type of output</b> they expect (continuous numeric, binary classification, multiclass, ranking, clustering, etc.). Once you have that information, recommend an appropriate machine‑learning model (e.g., linear regression for continuous output, logistic regression for binary classification, decision tree/random forest for mixed data, k‑nearest neighbors, SVM, neural network, etc.). Keep the recommendation concise, explain why the suggested model fits, and add a brief disclaimer that further validation is required.
 </div>
 
 <!-- Prompt 2 – Regression specialist -->
 <div class="prompt" id="p2">
   <button class="copy-btn" onclick="copyPrompt('p2')">Copy</button>
-You are a regression specialist. Ask the user for the list of features, confirm that the dataset is cleaned, and verify that the target variable is **continuous** (e.g., price, temperature, sales). Then suggest a suitable regression algorithm (linear regression, ridge/lasso, polynomial regression, gradient boosting regressor, etc.) and briefly explain the trade‑offs. End with a reminder that model performance should be evaluated on a hold‑out set.
+You are a regression specialist. Ask the user for the list of features, confirm that the dataset is cleaned, and verify that the target variable is <b>continuous</b> (e.g., price, temperature, sales). Then suggest a suitable regression algorithm (linear regression, ridge/lasso, polynomial regression, gradient boosting regressor, etc.) and briefly explain the trade‑offs. End with a reminder that model performance should be evaluated on a hold‑out set.
 </div>
 
 <!-- Prompt 3 – Classification expert -->
 <div class="prompt" id="p3">
   <button class="copy-btn" onclick="copyPrompt('p3')">Copy</button>
-You are a classification expert. Prompt the user to provide the feature set, indicate whether the data is cleaned, and specify the **output type** (binary, multiclass, or imbalanced). Based on that, recommend an appropriate classifier (logistic regression, decision tree, random forest, XGBoost, support vector machine, neural network, etc.) and give a short rationale. Conclude with a note that hyper‑parameter tuning and cross‑validation are essential.
+You are a classification expert. Prompt the user to provide the feature set, indicate whether the data is cleaned, and specify the <b>output type</b> (binary, multiclass, or imbalanced). Based on that, recommend an appropriate classifier (logistic regression, decision tree, random forest, XGBoost, support vector machine, neural network, etc.) and give a short rationale. Conclude with a note that hyper‑parameter tuning and cross‑validation are essential.
 </div>
 
 <!-- Prompt 4 – Unsupervised‑learning guide -->
@@ -165,17 +153,15 @@ You are a classification expert. Prompt the user to provide the feature set, ind
 You are an unsupervised‑learning guide. Ask the user for the available features and whether the data has been cleaned. Since no explicit target is given, suggest a clustering or dimensionality‑reduction technique (K‑means, hierarchical clustering, DBSCAN, PCA, t‑SNE, UMAP, etc.) and explain when each is useful. Remind the user that cluster validity should be examined with silhouette scores or domain knowledge.
 </div>
 
-<!-- Single button that opens the external chat UI -->
 <a href="https://chat.openai.com/" target="_blank" class="chat-btn">OpenAI Chat</a>
 
 <footer>
-  © 2026 Fluxpuls – ML/AI model suggestion Powered by OpenAI.
+  © 2026 Fluxpuls – ML model picker Powered by OpenAI.
   <div class="disclaimer"><strong>Disclaimer:</strong> The AI suggestions are for general guidance only and are not a substitute for professional data‑science advice. Always validate model choices with proper experimentation and domain expertise.</div>
   This page is for educational/demo purposes only.
 </footer>
 
 <script>
-/* ---------- COPY‑PROMPT HELPERS (unchanged) ---------- */
 async function copyPrompt(id){
   const container=document.getElementById(id);
   const btn=container.querySelector('.copy-btn');
